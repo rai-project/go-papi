@@ -13,6 +13,7 @@ package papi
 
 /*
 #cgo LDFLAGS: -lpapi -lpthread
+#cgo pkg-config: papi
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
