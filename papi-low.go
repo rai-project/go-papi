@@ -115,13 +115,13 @@ func GetHardwareInfo() HardwareInfo {
 
 	// Describe all levels of the memory hierarchy.
 	mh := make([]MHLevelInfo, hw.mem_hierarchy.levels)
-	for level, _ := range mh {
+	for level := range mh {
 		cLevel := hw.mem_hierarchy.level[level]
 
 		// Populate the TLB information.
 		tlbData := make([]TLBInfo, maxLevels)
 		var validTLBLevels int
-		for i, _ := range tlbData {
+		for i := range tlbData {
 			ctlb := cLevel.tlb[i]
 			tlbData[i].Type = MHAttrs(ctlb._type)
 			if tlbData[i].Type == MH_TYPE_EMPTY {
@@ -137,7 +137,7 @@ func GetHardwareInfo() HardwareInfo {
 		// Populate the cache information.
 		cacheData := make([]CacheInfo, maxLevels)
 		var validCacheLevels int
-		for i, _ := range cacheData {
+		for i := range cacheData {
 			ccache := cLevel.cache[i]
 			cacheData[i].Type = MHAttrs(ccache._type)
 			if cacheData[i].Type == MH_TYPE_EMPTY {
