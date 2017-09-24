@@ -21,7 +21,7 @@ package papi
 // Wrap PAPI_thread_init() to simplify passing pthread_self() around.
 int initialize_papi_threading (void)
 {
-  return PAPI_thread_init(pthread_self);
+  return PAPI_thread_init((unsigned long (*)(void))(pthread_self));
 }
 */
 import "C"
@@ -158,12 +158,12 @@ type EventSet int32
 // An AddressMap stores information about the currently running program.
 type AddressMap struct {
 	Name      string
-	TextStart uintptr // Start address of program text segment 
-	TextEnd   uintptr // End address of program text segment 
-	DataStart uintptr // Start address of program data segment 
-	DataEnd   uintptr // End address of program data segment 
-	BssStart  uintptr // Start address of program bss segment 
-	BssEnd    uintptr // End address of program bss segment 
+	TextStart uintptr // Start address of program text segment
+	TextEnd   uintptr // End address of program text segment
+	DataStart uintptr // Start address of program data segment
+	DataEnd   uintptr // End address of program data segment
+	BssStart  uintptr // Start address of program bss segment
+	BssEnd    uintptr // End address of program bss segment
 }
 
 // A ProgramInfo is just like an AddressMap but additionally stores
@@ -368,23 +368,23 @@ type ComponentInfo struct {
 	POSIX1bTimers          bool   // Using POSIX 1b interval timers (timer_create) instead of setitimer
 	KernelProfile          bool   // Has kernel profiling support (buffered interrupts or sprofil-like)
 	KernelMultiplex        bool   // In kernel multiplexing
-	DataAddressRange       bool   // Supports data address range limiting
-	InstrAddressRange      bool   // Supports instruction address range limiting
-	FastCounterRead        bool   // Supports a user level PMC read instruction
-	FastRealTimer          bool   // Supports a fast real timer
-	FastVirtualTimer       bool   // Supports a fast virtual timer
-	Attach                 bool   // Supports attach
-	AttachMustPtrace       bool   // Attach must first ptrace and stop the thread/process
-	CPU                    bool   // Supports specifying cpu number to use with event set
-	Inherit                bool   // Supports child processes inheriting parents counters
-	EdgeDetect             bool   // Supports edge detection on events
-	Invert                 bool   // Supports invert detection on events
-	ProfileEAR             bool   // Supports data/instr/tlb miss address sampling
-	CntrGroups             bool   // Underlying hardware uses counter groups (e.g. POWER5)
-	CntrUmasks             bool   // Counters have unit masks
-	CntrIEAREvents         bool   // Counters support instr event addr register
-	CntrDEAREvents         bool   // Counters support data event addr register
-	CntrOPCMEvents         bool   // Counter events support opcode matching
+	// DataAddressRange       bool   // Supports data address range limiting
+	// InstrAddressRange      bool   // Supports instruction address range limiting
+	FastCounterRead  bool // Supports a user level PMC read instruction
+	FastRealTimer    bool // Supports a fast real timer
+	FastVirtualTimer bool // Supports a fast virtual timer
+	Attach           bool // Supports attach
+	AttachMustPtrace bool // Attach must first ptrace and stop the thread/process
+	CPU              bool // Supports specifying cpu number to use with event set
+	Inherit          bool // Supports child processes inheriting parents counters
+	// EdgeDetect             bool   // Supports edge detection on events
+	// Invert                 bool   // Supports invert detection on events
+	// ProfileEAR             bool   // Supports data/instr/tlb miss address sampling
+	// CntrGroups             bool   // Underlying hardware uses counter groups (e.g. POWER5)
+	CntrUmasks bool // Counters have unit masks
+	// CntrIEAREvents         bool   // Counters support instr event addr register
+	// CntrDEAREvents         bool   // Counters support data event addr register
+	// CntrOPCMEvents         bool   // Counter events support opcode matching
 }
 
 // ----------------------------------------------------------------------
